@@ -1,19 +1,26 @@
 import { Dispatcher } from '@colyseus/command';
-import { Client, Room } from 'colyseus';
-import { GameState } from '../schemas/GameState';
-import { Player } from '../schemas/Player';
+import { Client, Delayed, Room } from 'colyseus';
+import { GameState } from '../../schemas/GameState';
+import { Player } from '../../schemas/Player';
+import { commands, type CommandType } from './commands';
 
 export class GameRoom extends Room<GameState> {
 	dispatcher = new Dispatcher(this);
 	maxClients: number = 6;
 
 	onCreate(options: any) {
+		this.clock.start();
 		this.roomId = generateRoomId();
 
 		this.setState(new GameState());
 
 		this.onMessage('*', (client, type, message) => {
-			console.log(client, type, message);
+			const command = commands[type as CommandType];
+			if (!command) {
+				console.error(`Command ${type} not found`);
+				return;
+			}
+			command({ room: this, state: this.state, client, message });
 		});
 	}
 
@@ -38,6 +45,9 @@ export class GameRoom extends Room<GameState> {
 		if (this.state.hostId === client.sessionId && this.clients.length > 0) {
 			const newHost = this.clients[0];
 			this.state.hostId = newHost.sessionId;
+		}
+		if ([...this.state.players].length === 1) {
+			this.state.isGameStarted = false;
 		}
 	}
 }

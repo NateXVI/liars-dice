@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { room, state } from '$lib/stores/gameStore';
+	import { room, sendCommand, state } from '$lib/stores/gameStore';
 	import classNames from '$lib/utils/classNames';
 	import { Icon, Star } from 'svelte-hero-icons';
 
@@ -38,7 +38,10 @@
 		</ul>
 		{#if $room.sessionId === $state.hostId}
 			<div class="mt-5 ">
-				<button disabled="{players.length <= 1}" class="btn btn-wide btn-primary">Start game</button
+				<button
+					on:click="{() => sendCommand('startGame', {})}"
+					disabled="{players.length <= 1}"
+					class="btn btn-wide btn-primary">Start game</button
 				>
 				{#if players.length <= 1}
 					<p class="">You need at least 2 players to start the game</p>
