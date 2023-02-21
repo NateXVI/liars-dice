@@ -64,6 +64,16 @@ export class GameRoom extends Room<GameState> {
 
 	nextRound(winnerId: string) {
 		// TODO: handle next round logic
+		this.state.currentCountGuess = 0;
+		this.state.currentDiceGuess = 0;
+		this.state.currentTurn = winnerId;
+		this.state.state = 'rolling-dice';
+		this.clock.setTimeout(() => {
+			this.state.state = 'playing';
+		}, 3000);
+		[...this.state.players].forEach(([, player]) => {
+			player.rollDice();
+		});
 	}
 }
 

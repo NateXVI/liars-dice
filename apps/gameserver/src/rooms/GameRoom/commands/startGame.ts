@@ -20,5 +20,5 @@ export const startGame: CommandFunction<{}> = ({ room, state, client }) => {
 
 	room.clock.setTimeout(() => {
 		state.state = 'playing';
-	}, 5000);
+	}, 3000);
 };

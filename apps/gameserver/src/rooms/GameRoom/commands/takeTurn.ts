@@ -11,6 +11,7 @@ type TakeTurnArgs =
 	  };
 
 export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, message }) => {
+	console.log({ message });
 	if (message.action === 'raise') {
 		if (client.sessionId !== state.currentTurn) return;
 		const { dice, count } = message;
@@ -39,12 +40,14 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 				player.diceLeft -= 1;
 				room.nextRound(state.currentTurn);
 			}
+			console.log({ player });
 		} else {
 			const player = state.players.get(state.currentTurn);
 			if (player) {
 				player.diceLeft -= 1;
 				room.nextRound(client.sessionId);
 			}
+			console.log({ player });
 		}
 	}
 };
