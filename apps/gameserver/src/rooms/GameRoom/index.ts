@@ -26,12 +26,14 @@ export class GameRoom extends Room<GameState> {
 
 	onJoin(client: Client, options: { name: string }, auth?: any) {
 		this.broadcast('message', `${client.sessionId} joined.`);
-		console.log(options);
 		const name =
 			typeof options.name === 'string' && options.name.trim().length > 0
 				? options.name.trim()
 				: 'Anonymous';
-		this.state.players.set(client.sessionId, new Player({ name }));
+
+		const players = [...this.state.players].sort((a, b) => a[1].order - b[1].order);
+		const order = players.length > 0 ? players[players.length - 1][1].order + 1 : 0;
+		this.state.players.set(client.sessionId, new Player({ id: client.sessionId, name, order }));
 
 		if (this.state.hostId === undefined) {
 			this.state.hostId = client.sessionId;
@@ -49,6 +51,19 @@ export class GameRoom extends Room<GameState> {
 		if ([...this.state.players].length === 1) {
 			this.state.isGameStarted = false;
 		}
+	}
+
+	nextTurn() {
+		const players = [...this.state.players]
+			.sort((a, b) => a[1].order - b[1].order)
+			.filter(([, player]) => player.diceLeft > 0);
+		const currentPlayerIndex = players.findIndex(([id]) => id === this.state.currentTurn);
+		const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+		this.state.currentTurn = players[nextPlayerIndex][0];
+	}
+
+	nextRound(winnerId: string) {
+		// TODO: handle next round logic
 	}
 }
 

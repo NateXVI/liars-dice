@@ -11,8 +11,9 @@ type RoomWithState = Room<GameState>;
 
 export const room = writable<RoomWithState>();
 export const state = writable<GameState>();
+export const inRoom = writable(false);
 
-export const sendCommand = <T extends CommandType>(type: T, message: CommandArgs<T>) => {
+export const sendCommand = <T extends CommandType>(type: T, message: CommandArgs<T> = {}) => {
 	const $room = get_store_value(room);
 	if (!$room) {
 		console.error('No room to send command to');
@@ -22,8 +23,10 @@ export const sendCommand = <T extends CommandType>(type: T, message: CommandArgs
 };
 
 export const getPlayer = (id?: string) => {
+	const $room = get_store_value(room);
 	const $state = get_store_value(state);
-	const playerId = id || get_store_value(room).sessionId;
+	if (!$room || !$state) return null;
+	const playerId = id || $room.sessionId;
 	return $state.players.get(playerId);
 };
 
@@ -45,8 +48,7 @@ const addListenersToRoom = (r: RoomWithState) => {
 	});
 	r.onLeave((code) => {
 		console.log('Room left:', code);
-		room.set(undefined as unknown as Room); // the room will not be used if it isn't defined, I'll make sure of that
-		state.set(undefined as unknown as GameState); // same as above
+		inRoom.set(false);
 	});
 };
 
@@ -59,6 +61,7 @@ export const createRoom = async (opts: RoomOptions = {}) => {
 	addListenersToRoom(newRoom);
 	state.set(newRoom.state);
 	room.set(newRoom);
+	inRoom.set(true);
 };
 
 export const joinRoom = async (roomId: string, opts: RoomOptions = {}) => {
@@ -66,4 +69,5 @@ export const joinRoom = async (roomId: string, opts: RoomOptions = {}) => {
 	addListenersToRoom(newRoom);
 	state.set(newRoom.state);
 	room.set(newRoom);
+	inRoom.set(true);
 };

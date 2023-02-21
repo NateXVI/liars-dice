@@ -1,13 +1,11 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import { room, sendCommand, state } from '$lib/stores/gameStore';
 	import classNames from '$lib/utils/classNames';
 	import { Icon, Star } from 'svelte-hero-icons';
+	import Avatar from './Avatar.svelte';
 
 	$: players = [...$state.players];
-
-	const startGame = () => {
-		$room.send('startGame');
-	};
 </script>
 
 <div class="py-16 px-5">
@@ -19,9 +17,10 @@
 	</div>
 	<div class="mt-4">
 		<p>Players ({players.length}/6)</p>
-		<ul>
+		<ul class="grid grid-cols-2 gap-y-4">
 			{#each players as [id, player]}
-				<li class="flex items-center gap-2">
+				<li class="flex items-center gap-2" transition:fade>
+					<Avatar seed="{player.name}" />
 					<p
 						class="{classNames(
 							id === $room.sessionId && 'font-bold',
@@ -39,9 +38,9 @@
 		{#if $room.sessionId === $state.hostId}
 			<div class="mt-5 ">
 				<button
-					on:click="{() => sendCommand('startGame', {})}"
+					on:click="{() => sendCommand('startGame')}"
 					disabled="{players.length <= 1}"
-					class="btn btn-wide btn-primary">Start game</button
+					class="btn btn-wide btn-primary transition-colors">Start game</button
 				>
 				{#if players.length <= 1}
 					<p class="">You need at least 2 players to start the game</p>

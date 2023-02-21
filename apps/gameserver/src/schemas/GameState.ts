@@ -4,6 +4,12 @@ import { Player } from './Player';
 export class GameState extends Schema {
 	@type({ map: Player }) players = new MapSchema<Player>();
 	@type('string') hostId: string;
+
 	@type('boolean') isGameStarted: boolean;
+
 	@type('string') currentTurn: string;
+	@type('number') currentDiceGuess: number = 0;
+	@type('number') currentCountGuess: number = 0;
+	@type('string') guessedBy: string;
+	@type('string') state: string;
 }

@@ -1,13 +1,24 @@
 <script lang="ts">
-	import { room, state } from '$lib/stores/gameStore';
+	import { quintOut } from 'svelte/easing';
+	import { fade, scale, crossfade } from 'svelte/transition';
+	import { room, state, inRoom } from '$lib/stores/gameStore';
 	import TitleScreen from '../TitleScreen.svelte';
+	import Table from './Table.svelte';
 	import WaitingRoom from './WaitingRoom.svelte';
+
+	const duration = 100;
 </script>
 
-{#if !$room}
-	<TitleScreen />
+{#if !$room || !$state || !$inRoom}
+	<div in:fade="{{ duration, delay: duration }}" out:fade="{{ duration }}" class="page">
+		<TitleScreen />
+	</div>
 {:else if !$state.isGameStarted}
-	<WaitingRoom />
+	<div in:fade="{{ duration, delay: duration }}" out:fade="{{ duration }}" class="page">
+		<WaitingRoom />
+	</div>
 {:else}
-	<p>Game is started</p>
+	<div in:fade="{{ duration, delay: duration }}" out:fade="{{ duration }}" class="page">
+		<Table />
+	</div>
 {/if}

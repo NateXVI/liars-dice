@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { client, room, createRoom, joinRoom } from '$lib/stores/gameStore';
+	import { createRoom, joinRoom } from '$lib/stores/gameStore';
 	import wait from '$lib/utils/wait';
 
 	let code = '';
@@ -15,7 +15,7 @@
 	const handleCreateRoom = async () => {
 		loading = true;
 		message = '';
-		await wait(1000);
+		// await wait(1000);
 		try {
 			createRoom({ name });
 		} catch {
@@ -27,7 +27,7 @@
 	const handleJoinRoom = async () => {
 		loading = true;
 		message = '';
-		await wait(1000);
+		// await wait(1000);
 		try {
 			joinRoom(code, { name });
 		} catch {
@@ -37,7 +37,7 @@
 	};
 </script>
 
-<div class="min-h-screen w-full p-5 grid place-items-center">
+<div class="min-h-full w-full p-5 grid place-items-center">
 	<div class="max-w-5xl w-full">
 		<h1 class="text-9xl text-center font-extrabold tracking-wider py-16 text-secondary-content">
 			Liars Dice
@@ -68,7 +68,7 @@
 	</div>
 	{#if loading}
 		<div
-			class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center"
+			class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center"
 		>
 			<div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-700"></div>
 		</div>
