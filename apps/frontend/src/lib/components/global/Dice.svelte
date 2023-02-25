@@ -1,11 +1,16 @@
 <script lang="ts">
 	import Dot from './Dot.svelte';
 
+	export let size = 48;
+	$: style = `width: ${size}px; height: ${size}px;`;
 	export let number: number;
 	$: number = Math.max(1, Math.min(6, number));
 </script>
 
-<div class="bg-white w-12 h-12 place-items-center grid grid-rows-3 grid-cols-3 p-2 rounded-md">
+<div
+	style="{style}"
+	class="bg-white place-items-center grid grid-rows-3 grid-cols-3 p-[16.666%] rounded-md"
+>
 	{#if number === 1}
 		<Dot row="{2}" col="{2}" />
 	{:else if number === 2}

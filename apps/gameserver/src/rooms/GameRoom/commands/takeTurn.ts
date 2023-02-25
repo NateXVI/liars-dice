@@ -12,42 +12,53 @@ type TakeTurnArgs =
 
 export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, message }) => {
 	console.log({ message });
+	if (state.state !== 'playing') return;
 	if (message.action === 'raise') {
 		if (client.sessionId !== state.currentTurn) return;
+
+		state.state = 'revealing-answer';
 		const { dice, count } = message;
+		state.previousDiceGuess = state.currentDiceGuess;
+		state.previousCountGuess = state.currentCountGuess;
+		state.previousGuessedBy = state.guessedBy;
 		state.currentDiceGuess = dice;
 		state.currentCountGuess = count;
 		state.guessedBy = client.sessionId;
 
-		const players = [...state.players]
-			.sort((a, b) => a[1].order - b[1].order)
-			.filter(([, player]) => player.diceLeft > 0);
-
-		room.nextTurn();
+		room.clock.setTimeout(() => {
+			room.nextTurn();
+		}, 5000);
 	} else if (message.action === 'liar') {
-		if (client.sessionId === state.currentTurn) return;
-		const players = [...state.players];
+		if (client.sessionId === state.guessedBy || state.guessedBy === undefined) return;
 
-		const dice = [] as number[];
-		for (const [, player] of players) {
-			dice.push(...player.dice);
-		}
-		let countedDice = dice.filter((d) => d === state.currentDiceGuess || d === 1).length;
+		const player = state.players.get(client.sessionId);
+		const guesser = state.players.get(state.guessedBy);
 
-		if (countedDice >= state.currentCountGuess) {
-			const player = state.players.get(client.sessionId);
-			if (player) {
+		if (player === undefined || player.diceLeft <= 0) return;
+
+		state.state = 'called-liar';
+
+		room.clock.setTimeout(() => {
+			state.state = 'revealing-liar';
+		}, 3000);
+
+		room.clock.setTimeout(() => {
+			const allDice = [...state.players.values()].flatMap((player) => [...player.dice]);
+			const diceCount = allDice.filter(
+				(dice) => dice === state.currentDiceGuess || dice === 1
+			).length;
+
+			if (diceCount >= state.currentCountGuess) {
+				// guesser was right
 				player.diceLeft -= 1;
-				room.nextRound(state.currentTurn);
+				room.nextRound(guesser?.id ?? '');
+			} else {
+				// player was right
+				if (guesser !== undefined) {
+					guesser.diceLeft -= 1;
+				}
+				room.nextRound(player.id);
 			}
-			console.log({ player });
-		} else {
-			const player = state.players.get(state.currentTurn);
-			if (player) {
-				player.diceLeft -= 1;
-				room.nextRound(client.sessionId);
-			}
-			console.log({ player });
-		}
+		}, 10000);
 	}
 };

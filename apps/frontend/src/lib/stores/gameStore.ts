@@ -37,17 +37,7 @@ const addListenersToRoom = (r: RoomWithState) => {
 	r.onMessage('message', (message) => {
 		console.log('Message from server:', message);
 	});
-	r.onMessage('error', (message) => {
-		console.log('Error from server:', message);
-	});
-	r.onError((code, message) => {
-		console.log('Error from server:', code, message);
-	});
-	r.onStateChange((s) => {
-		state.set(s);
-	});
-	r.onLeave((code) => {
-		console.log('Room left:', code);
+	r.onLeave(() => {
 		inRoom.set(false);
 	});
 };

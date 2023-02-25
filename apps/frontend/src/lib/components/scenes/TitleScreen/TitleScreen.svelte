@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { createRoom, joinRoom } from '$lib/stores/gameStore';
-	import wait from '$lib/utils/wait';
+	import SceneContainer from '../SceneContainer.svelte';
 
 	let code = '';
 	$: code = code.replace(/[^a-z]/gi, '').toUpperCase();
 
+	// TODO: switch to local storage
 	let name = browser ? sessionStorage.getItem('name') || '' : '';
 	$: browser && sessionStorage.setItem('name', name);
 
@@ -15,7 +16,6 @@
 	const handleCreateRoom = async () => {
 		loading = true;
 		message = '';
-		// await wait(1000);
 		try {
 			createRoom({ name });
 		} catch {
@@ -27,7 +27,6 @@
 	const handleJoinRoom = async () => {
 		loading = true;
 		message = '';
-		// await wait(1000);
 		try {
 			joinRoom(code, { name });
 		} catch {
@@ -37,7 +36,7 @@
 	};
 </script>
 
-<div class="min-h-full w-full p-5 grid place-items-center">
+<SceneContainer class="p-5 grid place-items-center">
 	<div class="max-w-5xl w-full">
 		<h1 class="text-9xl text-center font-extrabold tracking-wider py-16 text-secondary-content">
 			Liars Dice
@@ -73,4 +72,4 @@
 			<div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-700"></div>
 		</div>
 	{/if}
-</div>
+</SceneContainer>
