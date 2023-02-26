@@ -37,8 +37,8 @@
 <div style="{style}" class="{classNames('relative', active && '')}">
 	<div
 		class="{classNames(
-			'absolute w-full h-full -z-10 transition-all rounded-full',
-			active && 'bg-red-800 scale-150'
+			'absolute -z-10 h-full w-full rounded-full transition-all',
+			active && 'scale-150 bg-red-800'
 		)}"
 	></div>
 	<img
@@ -46,7 +46,7 @@
 			mouth ? `&mouth=${mouth}` : ''
 		}`}"
 		alt="player avatar"
-		class="w-full h-full flex-none"
+		class="h-full w-full flex-none"
 	/>
 </div>
 

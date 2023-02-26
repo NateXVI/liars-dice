@@ -10,16 +10,16 @@
 </script>
 
 <SceneContainer class="py-16 px-5">
-	<div class="w-full max-w-4xl mx-auto">
-		<div class="flex justify-between items-center">
-			<p class="text-3xl text-secondary-content">
-				Room code <span class="text-4xl font-bold text-primary">{$room.id}</span>
+	<div class="mx-auto w-full max-w-4xl">
+		<div class="flex items-center justify-between">
+			<p class="text-secondary-content text-3xl">
+				Room code <span class="text-primary text-4xl font-bold">{$room.id}</span>
 			</p>
 			<button class="btn btn-error btn-sm" on:click="{() => $room.leave()}">Leave</button>
 		</div>
 		<div class="mt-4">
 			<p>Players ({players.length}/6)</p>
-			<ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-4 grid-flow-row">
+			<ul class="grid grid-flow-row gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
 				{#each players as [id, player]}
 					<li class="flex items-center gap-2" transition:fade|local>
 						<div class="flex-none">
@@ -28,7 +28,7 @@
 						<p
 							class="{classNames(
 								id === $room.sessionId && 'font-bold',
-								'text-2xl text-white tracking-wide'
+								'text-2xl tracking-wide text-white'
 							)}"
 						>
 							{player.name}

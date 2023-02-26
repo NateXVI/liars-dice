@@ -9,7 +9,7 @@
 
 <div
 	style="{style}"
-	class="bg-white place-items-center grid grid-rows-3 grid-cols-3 p-[16.666%] rounded-md"
+	class="grid grid-cols-3 grid-rows-3 place-items-center rounded-md bg-white p-[16.666%]"
 >
 	{#if number === 1}
 		<Dot row="{2}" col="{2}" />

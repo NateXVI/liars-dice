@@ -11,6 +11,6 @@
 	$: dots = '.'.repeat(count);
 </script>
 
-<span class="tracking-widest text-2xl">
+<span class="text-2xl tracking-widest">
 	{dots}
 </span>

@@ -5,4 +5,4 @@
 	$: style = `grid-row: ${row}; grid-column: ${col};`;
 </script>
 
-<div class="bg-black w-[75%] h-[75%] flex-none rounded-full" style="{style}"></div>
+<div class="h-[75%] w-[75%] flex-none rounded-full bg-black" style="{style}"></div>
