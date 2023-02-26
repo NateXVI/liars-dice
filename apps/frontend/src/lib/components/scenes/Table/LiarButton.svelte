@@ -12,6 +12,5 @@
 		$state.guessedBy === undefined ||
 		$state.currentCountGuess === 0}"
 	on:click="{() => sendCommand('takeTurn', { action: 'liar' })}"
-	class="btn btn-primary btn-xl mt-5 h-auto w-full max-w-lg pb-3 pt-2 text-6xl transition-colors"
-	>LIAR!!!</button
+	class="btn btn-warning md:btn-wide h-[40px] w-full text-xl font-bold">Liar!</button
 >

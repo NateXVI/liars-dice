@@ -10,7 +10,7 @@
 </script>
 
 <SceneContainer class="py-16 px-5">
-	<div class="mx-auto w-full max-w-4xl">
+	<div class="mx-auto w-full max-w-6xl">
 		<div class="flex items-center justify-between">
 			<p class="text-secondary-content text-3xl">
 				Room code <span class="text-primary text-4xl font-bold">{$room.id}</span>

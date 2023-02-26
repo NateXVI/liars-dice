@@ -1,4 +1,6 @@
 <script>
+	import { onDestroy } from 'svelte';
+
 	let count = 0;
 
 	const increment = () => {
@@ -6,11 +8,15 @@
 		count = count % 4;
 	};
 
-	setInterval(increment, 300);
+	const interval = setInterval(increment, 300);
+
+	onDestroy(() => {
+		clearInterval(interval);
+	});
 
 	$: dots = '.'.repeat(count);
 </script>
 
-<span class="text-2xl tracking-widest">
+<span>
 	{dots}
 </span>

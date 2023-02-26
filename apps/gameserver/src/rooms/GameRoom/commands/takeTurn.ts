@@ -12,17 +12,18 @@ type TakeTurnArgs =
 
 export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, message }) => {
 	console.log({ message });
-	if (state.state !== 'playing') return;
+	if (state.tableState !== 'playing') return;
 	if (message.action === 'raise') {
 		if (client.sessionId !== state.currentTurn) return;
 
-		state.state = 'revealing-answer';
+		// state.tableState = 'revealing-answer';
 		const { dice, count } = message;
 		state.previousDiceGuess = state.currentDiceGuess;
 		state.previousCountGuess = state.currentCountGuess;
 		state.previousGuessedBy = state.guessedBy;
 		state.currentDiceGuess = dice;
 		state.currentCountGuess = count;
+		state.tableState = 'revealing-answer';
 		state.guessedBy = client.sessionId;
 
 		room.clock.setTimeout(() => {
@@ -36,10 +37,10 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 
 		if (player === undefined || player.diceLeft <= 0) return;
 
-		state.state = 'called-liar';
+		state.tableState = 'called-liar';
 
 		room.clock.setTimeout(() => {
-			state.state = 'revealing-liar';
+			state.tableState = 'revealing-liar';
 		}, 3000);
 
 		room.clock.setTimeout(() => {

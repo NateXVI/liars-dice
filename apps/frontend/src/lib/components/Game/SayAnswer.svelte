@@ -7,7 +7,7 @@
 	$: cutText = text.slice(0, Math.floor($progress * text.length));
 
 	onMount(() => {
-		progress.set(1);
+		$progress = 1;
 	});
 </script>
 
