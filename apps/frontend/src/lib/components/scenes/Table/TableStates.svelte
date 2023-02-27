@@ -2,6 +2,7 @@
 	import SpeakingDots from '$lib/components/global/SpeakingDots.svelte';
 	import { room, state } from '$lib/stores/gameStore';
 	import Controls from './Controls.svelte';
+	import WaitingForTurn from './WaitingForTurn.svelte';
 </script>
 
 <div class="w-full flex-1">
@@ -13,7 +14,7 @@
 		{#if $state.currentTurn === $room.sessionId}
 			<Controls />
 		{:else}
-			<div></div>
+			<WaitingForTurn />
 		{/if}
 	{/if}
 </div>
