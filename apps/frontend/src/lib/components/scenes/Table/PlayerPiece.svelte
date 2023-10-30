@@ -9,35 +9,47 @@
 	$: guessed = $state.guessedBy === player.id;
 
 	$: image = getPlayerAvatar(player.name);
+	$: isTheLiar =
+		player.id === $state.liarCalledBy &&
+		['called-liar', 'revealing-liar'].includes($state.tableState);
 </script>
 
 <div class="relative">
-	<img
-		src="/assets/player-piece-empty.svg"
-		alt="player piece/background/card"
-		aria-hidden="true"
-		class="pointer-events-none select-none"
-		class:hidden="{guessed}"
-	/>
-	<img
-		src="/assets/player-piece.svg"
-		alt="player piece/background/card"
-		aria-hidden="true"
-		class="pointer-events-none select-none"
-		class:hidden="{!guessed}"
-	/>
+	{#if isTheLiar}
+		<img
+			src="/assets/player-piece-liar.svg"
+			alt="player piece/background/card"
+			aria-hidden="true"
+			class="liar pointer-events-none select-none"
+		/>
+	{:else}
+		<img
+			src="/assets/player-piece-empty.svg"
+			alt="player piece/background/card"
+			aria-hidden="true"
+			class="pointer-events-none select-none"
+			class:hidden="{guessed}"
+		/>
+		<img
+			src="/assets/player-piece.svg"
+			alt="player piece/background/card"
+			aria-hidden="true"
+			class="pointer-events-none select-none"
+			class:hidden="{!guessed}"
+		/>
+	{/if}
 	<div
-		class="pointer-events-none absolute top-[8%] left-[6%] aspect-square w-[24%] select-none rounded-full bg-white"
+		class="pointer-events-none absolute left-[6%] top-[8%] aspect-square w-[24%] select-none rounded-full bg-white"
 	>
 		{@html image}
 	</div>
 	<div
-		class="absolute top-[12%] left-[32%] flex h-[15%] w-[57%] items-center justify-center text-center"
+		class="absolute left-[32%] top-[12%] flex h-[15%] w-[57%] items-center justify-center text-center"
 	>
 		<span style="font-size: 1.25em" class="font-thin text-white">{player.name}</span>
 	</div>
 	<div
-		class="absolute top-[32%] left-[32%] flex h-[15%] w-[57%] items-center justify-center text-center"
+		class="absolute left-[32%] top-[32%] flex h-[15%] w-[57%] items-center justify-center text-center"
 	>
 		<span style="font-size: 2.25em" class="font-semibold text-white"
 			>{player.diceLeft} dice left</span
@@ -54,3 +66,21 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	@keyframes growShake {
+		0% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.1);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	.liar {
+		animation: growShake 0.5s ease-in-out infinite;
+	}
+</style>

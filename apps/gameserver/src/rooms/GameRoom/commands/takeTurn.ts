@@ -32,6 +32,7 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 
 		if (player === undefined || player.diceLeft <= 0) return;
 
+		state.liarCalledBy = player.id;
 		state.revealedDice = 0;
 		state.tableState = 'called-liar';
 		let totalDice = 0;

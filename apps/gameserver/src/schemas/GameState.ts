@@ -24,4 +24,5 @@ export class GameState extends Schema {
 	@type('number') currentCountGuess: number = 0;
 	@type('string') guessedBy: string;
 	@type('number') revealedDice: number = 0;
+	@type('string') liarCalledBy: string;
 }
