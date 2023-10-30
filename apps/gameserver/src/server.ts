@@ -1,4 +1,4 @@
 import { listen } from "@colyseus/tools";
-import arenaConfig from "./arena.config";
+import arenaConfig from "./app.config";
 
 listen(arenaConfig);
