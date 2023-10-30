@@ -21,7 +21,7 @@ importers:
       autoprefixer: ^10.4.16
       colyseus.js: ^0.15.14
       daisyui: ^3.9.4
-      gameserver: link:../gameserver
+      gameserver: ../gameserver
       postcss: ^8.4.31
       postcss-load-config: ^4.0.1
       prettier: ^3.0.3
@@ -72,7 +72,7 @@ importers:
       '@types/express': ^4.17.20
       '@types/node': ^20.8.9
       colyseus: ^0.15.9
-      config: link:../../packages/config
+      config: ../../packages/config
       express: ^4.18.2
       tsup: ^7.2.0
       typescript: ^5.2.2
