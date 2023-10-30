@@ -1,5 +1,9 @@
 <script>
 	import '../app.postcss';
+	import '@fontsource/modak';
+	import '@fontsource-variable/quicksand';
 </script>
 
-<slot />
+<div class="font-quick">
+	<slot />
+</div>

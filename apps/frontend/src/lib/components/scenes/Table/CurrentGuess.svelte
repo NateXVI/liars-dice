@@ -2,37 +2,29 @@
 	import Avatar from '$lib/components/global/Avatar.svelte';
 	import Dice from '$lib/components/global/Dice.svelte';
 	import { state } from '$lib/stores/gameStore';
+	import { getPlayerAvatar } from '$lib/utils/getPlayerImage';
+	import { scale } from 'svelte/transition';
 
-	$: currentDiceGuess = $state.currentDiceGuess;
-	$: currentCountGuess = $state.currentCountGuess;
-	$: guessedBy = $state.guessedBy;
 	$: currentGuesser = $state.players.get($state.guessedBy);
+	$: currentGuessingPlayer = $state.players.get($state.currentTurn);
+
+	$: avatar = getPlayerAvatar(currentGuessingPlayer?.name ?? '');
 </script>
 
 <div
-	class="mx-auto mt-5 flex min-h-[176px] w-full max-w-xl flex-none flex-wrap items-center justify-center justify-self-start overflow-hidden p-5"
-	style="background-image: url('/assets/sign-wide.png'); background-size: 100% 100%;"
+	class="absolute left-1/2 top-[45%] flex -translate-x-1/2 -translate-y-1/2 flex-col items-center text-white"
+	transition:scale="{{ start: 0.5, duration: 250 }}"
 >
-	{#if guessedBy}
-		<div class="font-pixel flex-none text-center text-black">
-			<Avatar size="{90}" seed="{currentGuesser?.name ?? ''}" />
-			<p>{currentGuesser?.name ?? 'Name'}</p>
-		</div>
-		<div class="outline-text font-pixel text-center text-2xl text-black">
-			<p class="text-2xl">Thinks there's</p>
-			<div class="flex items-center justify-center">
-				<p class="whitespace-pre text-5xl tracking-tighter">
-					{currentCountGuess} X{' '}<span class="sr-only">{currentDiceGuess}</span>
-				</p>
-				<Dice size="{40}" number="{currentDiceGuess}" />
-			</div>
-		</div>
-	{/if}
+	<div class="h-[25%] w-[25%]">
+		{#if currentGuessingPlayer}
+			{@html avatar}
+		{/if}
+	</div>
+	<div class="flex items-center">
+		{#if currentGuessingPlayer}
+			<span style="font-size: 4em" class="text-center"
+				><span class="font-bold">{currentGuessingPlayer.name}</span> is guessing</span
+			>
+		{/if}
+	</div>
 </div>
-
-<style>
-	.outline-text {
-		-webkit-text-stroke-width: 1px;
-		-webkit-text-stroke-color: #ffffff33;
-	}
-</style>

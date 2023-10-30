@@ -3,7 +3,7 @@ import { Schema, type } from '@colyseus/schema';
 export class Player extends Schema {
 	@type('string') id: string;
 	@type('string') name: string;
-	@type('number') diceLeft: number = 5;
+	@type('number') diceLeft: number = 6;
 	@type({ array: 'number' }) dice: number[] = [];
 	@type('number') order: number;
 

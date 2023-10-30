@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Dice from '$lib/components/global/Dice.svelte';
 	import { state, room } from '$lib/stores/gameStore';
-	import classNames from '$lib/utils/classNames';
 
 	let offset = 0;
 	const randomizeOffset = () => {
@@ -16,26 +15,26 @@
 	$: isRollingDice === true && randomizeOffset();
 </script>
 
-<div class="relative flex w-full flex-wrap items-center justify-between gap-5 md:justify-start">
-	{#if player}
-		{#each player.dice as die}
-			<div class="{classNames(isRollingDice && 'rotate')}">
-				<Dice size="{50}" number="{isRollingDice ? ((die + offset) % 5) + 1 : die}" />
+{#if player}
+	{#each player.dice as die, index}
+		<div
+			class="absolute bottom-[30%] left-1/2 h-[6%] w-[6%]"
+			style="transform: translateX(calc({index * 140}% - {(player.diceLeft / 2) *
+				140}% + {player.diceLeft > 1 ? 20 : 0}%));"
+		>
+			<div class="h-full w-full" class:rotate="{isRollingDice}">
+				<Dice number="{isRollingDice ? ((die + offset) % 5) + 1 : die}" />
 			</div>
-		{/each}
-	{/if}
-</div>
+		</div>
+	{/each}
+{/if}
 
 <style>
 	@keyframes rotate {
-		from {
-			transform: rotate(0deg);
-		}
 		to {
-			transform: rotate(360deg);
+			rotate: 360deg;
 		}
 	}
-
 	.rotate {
 		animation: rotate 1s linear infinite;
 	}

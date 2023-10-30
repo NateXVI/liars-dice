@@ -6,7 +6,9 @@ const config = {
 	theme: {
 		extend: {
 			fontFamily: {
-				pixel: ['Silkscreen', ...defaultTheme.fontFamily.sans]
+				pixel: ['Silkscreen', ...defaultTheme.fontFamily.sans],
+				modak: ['Modak', ...defaultTheme.fontFamily.sans],
+				quick: ['Quicksand', ...defaultTheme.fontFamily.sans]
 			}
 		}
 	},
