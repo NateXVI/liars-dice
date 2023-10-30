@@ -38,7 +38,7 @@
 
 <SceneContainer class="grid place-items-center p-5">
 	<div class="w-full max-w-5xl">
-		<h1 class="text-secondary-content py-16 text-center text-9xl font-extrabold tracking-wider">
+		<h1 class="text-[#152d35] font-modak py-16 text-center text-9xl tracking-wider">
 			Liars Dice
 		</h1>
 		<div class="mx-auto grid max-w-lg grid-cols-2 gap-y-4">
@@ -56,10 +56,10 @@
 				placeholder="ROOM CODE"
 				class="input input-bordered rounded-badge col-span-2 p-3 text-center text-4xl font-bold tracking-wider text-white"
 			/>
-			<button on:click="{handleCreateRoom}" class="btn btn-secondary rounded-r-none"
+			<button on:click="{handleCreateRoom}" class="bg-[#152d35] rounded-l-lg"
 				>Create Room</button
 			>
-			<button on:click="{handleJoinRoom}" class="btn btn-primary rounded-l-none font-bold uppercase"
+			<button on:click="{handleJoinRoom}" class="bg-[#0081c9] py-4 text-white rounded-r-lg"
 				>Join Room</button
 			>
 			<p class="col-span-2 text-center">{message}</p>
