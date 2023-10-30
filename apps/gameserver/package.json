@@ -4,7 +4,8 @@
 	"description": "Backend for the game that manages the game state, players, and rooms",
 	"main": "dist/index.js",
 	"scripts": {
-		"dev": "tsup --entry src/server.ts --entry src/index.ts --watch --dts --format cjs,esm --onSuccess \"node dist/server.js\""
+		"dev": "tsup --entry src/server.ts --entry src/index.ts --watch --dts --format cjs,esm --onSuccess \"node dist/server.js\"",
+		"deploy": "pnpx @colyseus/cloud deploy"
 	},
 	"keywords": [],
 	"author": "Nathan Diven",
