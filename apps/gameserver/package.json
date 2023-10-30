@@ -5,7 +5,7 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"dev": "tsup --entry src/server.ts --entry src/index.ts --watch --dts --format cjs,esm --onSuccess \"node dist/server.js\"",
-		"build": "tsup --entry src/server.ts --entry src/index.ts --dts --format cjs,esm",
+		"build": "tsc",
 		"deploy": "pnpx @colyseus/cloud deploy"
 	},
 	"keywords": [],
