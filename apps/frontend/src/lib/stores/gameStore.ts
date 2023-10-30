@@ -3,9 +3,9 @@ import { Client, type Room } from 'colyseus.js';
 import { browser } from '$app/environment';
 import type { GameState } from 'gameserver';
 import type { CommandType, CommandArgs } from 'gameserver';
+import { PUBLIC_GAME_SERVER_URL } from '$env/static/public';
 
-// export const client = browser ? new Client('ws://localhost:2567') : ({} as Client);
-export const client = browser ? new Client('wss://us-dfw-fcdc2540.colyseus.cloud') : ({} as Client);
+export const client = browser ? new Client(PUBLIC_GAME_SERVER_URL) : ({} as Client);
 
 type RoomWithState = Room<GameState>;
 
