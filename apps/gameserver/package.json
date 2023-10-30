@@ -19,7 +19,6 @@
 		"typescript": "^5.2.2"
 	},
 	"dependencies": {
-		"@colyseus/arena": "^0.14.24",
 		"@colyseus/command": "^0.2.1",
 		"@colyseus/schema": "^2.0.20",
 		"@colyseus/tools": "^0.15.21",
