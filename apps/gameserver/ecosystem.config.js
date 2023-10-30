@@ -3,7 +3,7 @@ const os = require('os');
 module.exports = {
     apps : [{
         name: "liars-dice-server",
-        script: "./dist/index.js",
+        script: "dist/index.js",
         time: true,
         watch: false,
         instances: os.cpus().length,
