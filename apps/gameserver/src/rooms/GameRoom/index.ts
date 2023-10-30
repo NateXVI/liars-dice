@@ -8,11 +8,6 @@ export class GameRoom extends Room<GameState> {
 	dispatcher = new Dispatcher(this);
 	maxClients: number = 6;
 
-	constructor() {
-		super();
-		this.setSeatReservationTime(15);
-	}
-
 	onCreate(options: any) {
 		this.clock.start();
 		this.roomId = generateRoomId();
