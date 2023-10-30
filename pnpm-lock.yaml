@@ -18,10 +18,12 @@ importers:
       '@fontsource/modak': ^5.0.8
       '@sveltejs/adapter-auto': ^2.1.0
       '@sveltejs/kit': ^1.27.1
+      '@types/howler': ^2.2.10
       autoprefixer: ^10.4.16
       colyseus.js: ^0.15.14
       daisyui: ^3.9.4
       gameserver: ../gameserver
+      howler: ^2.2.4
       postcss: ^8.4.31
       postcss-load-config: ^4.0.1
       prettier: ^3.0.3
@@ -42,9 +44,11 @@ importers:
       '@fontsource/modak': 5.0.8
       colyseus.js: 0.15.14
       daisyui: 3.9.4
+      howler: 2.2.4
     devDependencies:
       '@sveltejs/adapter-auto': 2.1.0_@sveltejs+kit@1.27.1
       '@sveltejs/kit': 1.27.1_svelte@4.2.2+vite@4.5.0
+      '@types/howler': 2.2.10
       autoprefixer: 10.4.16_postcss@8.4.31
       gameserver: link:../gameserver
       postcss: 8.4.31
@@ -1018,6 +1022,10 @@ packages:
       '@types/serve-static': 1.15.4
     dev: true
 
+  /@types/howler/2.2.10:
+    resolution: {integrity: sha512-MnDUQZBaDhIFTQATeO4tzOCBobtPjo2MmR0co70tMyk+HNUJB0loojn+PRkky7SrKzfvU90SqufIlQlCrtjr+A==}
+    dev: true
+
   /@types/http-errors/2.0.3:
     resolution: {integrity: sha512-pP0P/9BnCj1OVvQR2lF41EkDG/lWWnDyA203b/4Fmi2eTyORnBtcDoKDwjWQthELrBvWkMOrvSOnZ8OVlW6tXA==}
     dev: true
@@ -1832,6 +1840,10 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       function-bind: 1.1.2
+
+  /howler/2.2.4:
+    resolution: {integrity: sha512-iARIBPgcQrwtEr+tALF+rapJ8qSc+Set2GJQl7xT1MQzWaVkFebdJhR3alVlSiUf5U7nAANKuj3aWpwerocD5w==}
+    dev: false
 
   /http-errors/2.0.0:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}

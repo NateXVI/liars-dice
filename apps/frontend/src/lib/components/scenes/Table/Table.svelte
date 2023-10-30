@@ -5,25 +5,30 @@
 	import TableStates from './TableStates.svelte';
 	import PlayerDice from './PlayerDice.svelte';
 	import LiarButton from './LiarButton.svelte';
+	import { playSound } from '$lib/stores/sounds';
+	import { state, room } from '$lib/stores/gameStore';
 
 	let fontSize = 16;
 	let container: HTMLDivElement;
-	let startSound: HTMLAudioElement;
 
 	function calculateFontSize() {
 		const { width } = container.getBoundingClientRect();
 		fontSize = width / 100;
 	}
 
+	$: {
+		if ($state.tableState === 'playing' && $state.currentTurn !== $room.sessionId) {
+			playSound('nextTurn');
+		}
+	}
+
 	onMount(() => {
-		startSound.volume = 0.1;
-		startSound.play();
+		playSound('start');
 		calculateFontSize();
 	});
 </script>
 
 <svelte:window on:resize="{calculateFontSize}" />
-<audio class="hidden" src="/assets/sounds/start.wav" bind:this="{startSound}"></audio>
 <SceneContainer class="flex items-center justify-center p-10">
 	<div
 		class="relative aspect-[10/7] w-full max-w-[1200px] flex-1 border-2"
@@ -33,7 +38,7 @@
 		<img
 			src="/assets/table.svg"
 			alt="oval table"
-			class="pointer-events-none absolute left-0 top-0 bottom-0 right-0 h-full w-full select-none"
+			class="pointer-events-none absolute bottom-0 left-0 right-0 top-0 h-full w-full select-none"
 		/>
 		<Players />
 		<TableStates />

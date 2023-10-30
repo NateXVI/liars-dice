@@ -2,18 +2,22 @@
 	import { sendCommand, state } from '$lib/stores/gameStore';
 	import Dice from '$lib/components/global/Dice.svelte';
 	import { fade, scale } from 'svelte/transition';
+	import  { playSound } from '$lib/stores/sounds';
+	import { onMount } from 'svelte';
 
 	let selectedCount: number = 1;
-	let selectSound: HTMLAudioElement;
 
 	$: selectedCountMin =
 		$state.currentDiceGuess === 6 ? $state.currentCountGuess + 1 : $state.currentCountGuess;
 	$: selectedCount = Math.min(Math.max(1, selectedCountMin, selectedCount), 36);
 
 	const diceGuesses = [1, 2, 3, 4, 5, 6];
+
+	onMount(() => {
+		playSound('startTurn');
+	});
 </script>
 
-<audio class="hidden" src="/assets/sounds/select.wav" bind:this="{selectSound}"></audio>
 <div
 	class="absolute left-1/2 top-[28%] mx-auto flex h-[32%] w-[35%] -translate-x-1/2 flex-col items-center gap-[2%] rounded-[1em] border-[0.75em] border-[#152d35] bg-[#345b63] p-[2%]"
 	transition:scale="{{ start: 0.5, duration: 250 }}"
@@ -31,8 +35,7 @@
 				class="aspect-square w-[12%] transition-all disabled:opacity-50"
 				in:fade="{{ delay: index * 50 + 250, duration: 200 }}"
 				on:click="{() => {
-					selectSound.volume = 0.1;
-					selectSound.play();
+					playSound('select');
 					sendCommand('takeTurn', {
 						action: 'raise',
 						count: selectedCount,
