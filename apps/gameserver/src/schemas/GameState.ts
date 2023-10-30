@@ -9,7 +9,6 @@ const tableStates = [
 	'revealing-liar'
 ] as const;
 
-
 export class GameState extends Schema {
 	@type({ map: Player }) players = new MapSchema<Player>();
 	@type('string') hostId: string;
@@ -24,4 +23,5 @@ export class GameState extends Schema {
 	@type('number') currentDiceGuess: number = 0;
 	@type('number') currentCountGuess: number = 0;
 	@type('string') guessedBy: string;
+	@type('number') revealedDice: number = 0;
 }

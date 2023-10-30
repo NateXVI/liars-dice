@@ -37,11 +37,37 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 
 		if (player === undefined || player.diceLeft <= 0) return;
 
+		state.revealedDice = 0;
 		state.tableState = 'called-liar';
+		let totalDice = 0;
+		state.players.forEach((player) => {
+			player.dice.forEach((dice) => {
+				if (dice === state.currentDiceGuess || dice === 1) {
+					totalDice += 1;
+				}
+			});
+		});
+		let revealTime = totalDice * 1000;
 
-		room.clock.setTimeout(() => {
+		function easeOutCubic(t: number) {
+			return 1 - Math.pow(1 - t, 3);
+		}
+
+		room.clock.setTimeout(async () => {
 			state.tableState = 'revealing-liar';
-		}, 3000);
+			let startTime = Date.now();
+
+			while (state.revealedDice < totalDice) {
+				const elapsedTime = Date.now() - startTime;
+				if (elapsedTime > revealTime) {
+					state.revealedDice = totalDice;
+					break;
+				}
+				const tNormalized = elapsedTime / revealTime;
+				state.revealedDice = Math.ceil(totalDice * easeOutCubic(tNormalized));
+				await new Promise((resolve) => setTimeout(resolve, 100));
+			}
+		}, 1000);
 
 		room.clock.setTimeout(() => {
 			const allDice = [...state.players.values()].flatMap((player) => [...player.dice]);
@@ -60,6 +86,6 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 				}
 				room.nextRound(player.id);
 			}
-		}, 10000);
+		}, revealTime + 1000);
 	}
 };

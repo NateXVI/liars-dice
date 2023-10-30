@@ -2,6 +2,7 @@
 	import { room, state } from '$lib/stores/gameStore';
 	import Controls from './Controls.svelte';
 	import CurrentGuess from './CurrentGuess.svelte';
+	import RevealDice from './RevealDice.svelte';
 </script>
 
 <div class="w-full flex-1">
@@ -14,6 +15,9 @@
 			<Controls />
 		{:else}
 			<CurrentGuess />
+			<RevealDice />
 		{/if}
+	{:else if $state.tableState === 'revealing-liar'}
+		<RevealDice />
 	{/if}
 </div>

@@ -1,5 +1,5 @@
 import { Dispatcher } from '@colyseus/command';
-import { Client, Delayed, Room  } from 'colyseus';
+import { Client, Delayed, Room } from 'colyseus';
 import { GameState } from '../../schemas/GameState';
 import { Player } from '../../schemas/Player';
 import { commands, type CommandType } from './commands';

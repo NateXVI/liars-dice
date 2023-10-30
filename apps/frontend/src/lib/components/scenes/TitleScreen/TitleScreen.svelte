@@ -38,16 +38,14 @@
 
 <SceneContainer class="grid place-items-center p-5">
 	<div class="w-full max-w-5xl">
-		<h1 class="text-[#152d35] font-modak py-16 text-center text-9xl tracking-wider">
-			Liars Dice
-		</h1>
+		<h1 class="font-modak py-16 text-center text-9xl tracking-wider text-[#152d35]">Liars Dice</h1>
 		<div class="mx-auto grid max-w-lg grid-cols-2 gap-y-4">
 			<input
 				type="text"
 				bind:value="{name}"
 				placeholder="NAME"
 				max="10"
-				class="input input-bordered rounded-badge col-span-2 p-3 text-center text-4xl font-bold  tracking-wider text-white"
+				class="input input-bordered rounded-badge col-span-2 p-3 text-center text-4xl font-bold tracking-wider text-white"
 			/>
 			<input
 				type="text"
@@ -56,10 +54,8 @@
 				placeholder="ROOM CODE"
 				class="input input-bordered rounded-badge col-span-2 p-3 text-center text-4xl font-bold tracking-wider text-white"
 			/>
-			<button on:click="{handleCreateRoom}" class="bg-[#152d35] rounded-l-lg"
-				>Create Room</button
-			>
-			<button on:click="{handleJoinRoom}" class="bg-[#0081c9] py-4 text-white rounded-r-lg"
+			<button on:click="{handleCreateRoom}" class="rounded-l-lg bg-[#152d35]">Create Room</button>
+			<button on:click="{handleJoinRoom}" class="rounded-r-lg bg-[#0081c9] py-4 text-white"
 				>Join Room</button
 			>
 			<p class="col-span-2 text-center">{message}</p>
@@ -67,9 +63,9 @@
 	</div>
 	{#if loading}
 		<div
-			class="fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50"
+			class="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50"
 		>
-			<div class="h-32 w-32 animate-spin rounded-full border-t-2 border-b-2 border-gray-700"></div>
+			<div class="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-gray-700"></div>
 		</div>
 	{/if}
 </SceneContainer>
