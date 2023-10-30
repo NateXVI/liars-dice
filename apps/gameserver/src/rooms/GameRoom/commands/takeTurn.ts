@@ -15,8 +15,6 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 	if (state.tableState !== 'playing') return;
 	if (message.action === 'raise') {
 		if (client.sessionId !== state.currentTurn) return;
-
-		// state.tableState = 'revealing-answer';
 		const { dice, count } = message;
 		state.previousDiceGuess = state.currentDiceGuess;
 		state.previousCountGuess = state.currentCountGuess;
@@ -25,10 +23,7 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 		state.currentCountGuess = count;
 		state.tableState = 'revealing-answer';
 		state.guessedBy = client.sessionId;
-
-		room.clock.setTimeout(() => {
-			room.nextTurn();
-		}, 5000);
+		room.nextTurn();
 	} else if (message.action === 'liar') {
 		if (client.sessionId === state.guessedBy || state.guessedBy === undefined) return;
 
@@ -47,7 +42,7 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 				}
 			});
 		});
-		let revealTime = totalDice * 1000;
+		let revealTime = totalDice * 2000;
 
 		function easeOutCubic(t: number) {
 			return 1 - Math.pow(1 - t, 3);

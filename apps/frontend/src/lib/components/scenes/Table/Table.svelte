@@ -17,6 +17,12 @@
 	}
 
 	$: {
+		if ($state.tableState === 'called-liar') {
+			playSound('liar');
+		}
+	}
+
+	$: {
 		if ($state.tableState === 'playing' && $state.currentTurn !== $room.sessionId) {
 			playSound('nextTurn');
 		}

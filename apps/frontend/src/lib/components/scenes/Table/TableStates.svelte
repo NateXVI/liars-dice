@@ -15,7 +15,7 @@
 			<Controls />
 		{:else}
 			<CurrentGuess />
-			<RevealDice />
+			<!-- <RevealDice /> -->
 		{/if}
 	{:else if $state.tableState === 'revealing-liar'}
 		<RevealDice />
