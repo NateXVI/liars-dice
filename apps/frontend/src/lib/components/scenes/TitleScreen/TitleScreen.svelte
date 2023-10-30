@@ -45,17 +45,19 @@
 				bind:value="{name}"
 				placeholder="NAME"
 				max="10"
-				class="input input-bordered rounded-badge col-span-2 p-3 text-center text-4xl font-bold tracking-wider text-white"
+				class="input input-bordered rounded-badge col-span-2 p-3 text-center text-4xl font-bold tracking-wider"
 			/>
 			<input
 				type="text"
 				bind:value="{code}"
 				maxlength="4"
 				placeholder="ROOM CODE"
-				class="input input-bordered rounded-badge col-span-2 p-3 text-center text-4xl font-bold tracking-wider text-white"
+				class="input input-bordered rounded-badge col-span-2 p-3 text-center text-4xl font-bold tracking-wider"
 			/>
-			<button on:click="{handleCreateRoom}" class="rounded-l-lg bg-[#152d35]">Create Room</button>
-			<button on:click="{handleJoinRoom}" class="rounded-r-lg bg-[#0081c9] py-4 text-white"
+			<button on:click="{handleCreateRoom}" class="bg-secondary text-secondary-content rounded-l-lg"
+				>Create Room</button
+			>
+			<button on:click="{handleJoinRoom}" class="bg-primary text-primary-content rounded-r-lg py-4"
 				>Join Room</button
 			>
 			<p class="col-span-2 text-center">{message}</p>
