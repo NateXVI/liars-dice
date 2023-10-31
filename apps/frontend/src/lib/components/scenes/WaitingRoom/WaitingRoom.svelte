@@ -33,7 +33,7 @@
 			</div>
 			<button class="btn btn-error btn-sm" on:click="{() => $room.leave()}">Leave</button>
 		</div>
-		<div class="bg-base-200 text-base-content mt-4 rounded-lg p-4">
+		<div class="bg-base-200 text-base-content mt-4 flex flex-col gap-6 rounded-lg p-4">
 			<p>Players ({players.length}/6)</p>
 			<ul class="grid grid-flow-row gap-y-4 sm:grid-cols-2">
 				{#each players as [id, player]}
@@ -52,8 +52,8 @@
 					</li>
 				{/each}
 			</ul>
-			{#if $room.sessionId === $state.hostId}
-				<div class="flex w-full flex-col items-center justify-center gap-4 pt-10">
+			<div class="flex w-full flex-col items-center justify-center gap-4">
+				{#if $room.sessionId === $state.hostId}
 					<button
 						on:click="{() => sendCommand('startGame')}"
 						disabled="{players.length <= 1}"
@@ -62,8 +62,10 @@
 					{#if players.length <= 1}
 						<p class="">You need at least 2 players to start the game</p>
 					{/if}
-				</div>
-			{/if}
+				{:else}
+					<span class="opacity-50">waiting for host to start the game</span>
+				{/if}
+			</div>
 		</div>
 	</div>
 </SceneContainer>
