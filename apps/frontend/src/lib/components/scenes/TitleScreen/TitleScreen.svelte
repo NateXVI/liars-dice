@@ -6,9 +6,8 @@
 	let code = '';
 	$: code = code.replace(/[^a-z]/gi, '').toUpperCase();
 
-	// TODO: switch to local storage
-	let name = browser ? sessionStorage.getItem('name') || '' : '';
-	$: browser && sessionStorage.setItem('name', name);
+	let name = browser ? localStorage.getItem('name') || '' : '';
+	$: browser && localStorage.setItem('name', name);
 
 	let loading = false;
 	let message = '';

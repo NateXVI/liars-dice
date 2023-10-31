@@ -64,7 +64,6 @@ export class GameRoom extends Room<GameState> {
 	}
 
 	nextRound(winnerId: string) {
-		// TODO: handle next round logic
 		console.log({ winnerId, player: this.state.players.get(winnerId) });
 		this.state.currentCountGuess = 0;
 		this.state.currentDiceGuess = 0;
