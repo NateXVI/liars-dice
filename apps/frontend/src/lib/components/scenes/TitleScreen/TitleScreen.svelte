@@ -2,12 +2,15 @@
 	import { browser } from '$app/environment';
 	import { createRoom, joinRoom } from '$lib/stores/gameStore';
 	import SceneContainer from '../SceneContainer.svelte';
+	import { dev } from '$app/environment';
 
 	let code = '';
 	$: code = code.replace(/[^a-z]/gi, '').toUpperCase();
 
-	let name = browser ? localStorage.getItem('name') || '' : '';
-	$: browser && localStorage.setItem('name', name);
+	let storage = browser ? (dev ? sessionStorage : localStorage) : null;
+
+	let name = storage ? storage.getItem('name') || '' : '';
+	$: storage && storage.setItem('name', name);
 
 	let loading = false;
 	let message = '';
@@ -57,7 +60,11 @@
 
 <SceneContainer class="grid place-items-center p-5">
 	<div class="w-full max-w-5xl">
-		<h1 class="font-modak py-16 text-center text-9xl tracking-wider text-[#152d35]">Liars Dice</h1>
+		<h1
+			class="font-modak py-16 text-center text-6xl tracking-wider text-[#152d35] sm:text-8xl lg:text-9xl"
+		>
+			Liars Dice
+		</h1>
 		<div class="mx-auto flex max-w-lg flex-col items-center gap-y-4">
 			<input
 				type="text"
@@ -75,15 +82,15 @@
 				class="input bg-neutral col-span-2 w-full rounded-lg p-3 text-center text-4xl font-bold tracking-wider text-white"
 			/>
 			<p class="col-span-2 text-center">{message}</p>
-			<div class="flex flex-col gap-2 py-2">
+			<div class="flex w-full flex-col items-center gap-2 py-2">
 				<button
 					on:click="{handleJoinRoom}"
-					class="bg-primary text-primary-content w-60 rounded-lg py-4 text-xl font-bold"
+					class="bg-primary text-primary-content w-full rounded-lg py-4 text-xl font-bold"
 					disabled="{loading}">Join Room</button
 				>
 				<button
 					on:click="{handleCreateRoom}"
-					class="bg-secondary text-secondary-content rounded-lg p-2"
+					class="bg-secondary text-secondary-content w-60 rounded-lg p-2"
 					disabled="{loading}">+ Create Room</button
 				>
 			</div>
