@@ -33,6 +33,11 @@
 	onMount(() => {
 		playSound('start');
 		calculateFontSize();
+		const fontSizeInterval = setInterval(calculateFontSize, 500);
+
+		return () => {
+			clearInterval(fontSizeInterval);
+		};
 	});
 </script>
 
