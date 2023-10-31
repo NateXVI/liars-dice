@@ -9,14 +9,20 @@ export const startGame: CommandFunction<{}> = ({ room, state, client }) => {
 
 	state.scene = 'game-table';
 	for (const [, player] of players) {
+		player.diceLeft = 6;
 		player.rollDice();
 	}
 
 	const randomPlayer = players[Math.floor(Math.random() * players.length)];
 	state.currentTurn = randomPlayer[0];
+	state.previousDiceGuess = 0;
+	state.previousCountGuess = 0;
 	state.currentDiceGuess = 0;
 	state.currentCountGuess = 0;
-	state.tableState = 'rolling-dice';
+	state.guessedBy = '';
+	state.revealedDice = 0;
+	state.liarCalledBy = '';
+	state.winnerId = '';
 	state.tableState = 'rolling-dice';
 	state.scene = 'game-table';
 

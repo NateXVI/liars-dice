@@ -46,11 +46,10 @@
 		[233, 27],
 		[315, 30],
 		[351, 40],
-		[14.0, 40]
+		[14, 40]
 	][playerIndex];
 	$: startOffset = polarToCartesian(startVector[0], startVector[1]);
-	$: console.log(startOffset);
-	$: rotation = number * 9;
+	$: rotation = index * number * 9;
 </script>
 
 <div

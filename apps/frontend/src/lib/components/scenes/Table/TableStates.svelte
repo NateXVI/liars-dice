@@ -4,6 +4,7 @@
 	import CurrentGuess from './CurrentGuess.svelte';
 	import RevealDice from './RevealDice.svelte';
 	import RevealLiar from './RevealLiar.svelte';
+	import ShowWinner from './ShowWinner.svelte';
 </script>
 
 <div class="w-full flex-1">
@@ -22,5 +23,8 @@
 	{/if}
 	{#if $state.tableState === 'revealing-liar'}
 		<RevealLiar />
+	{/if}
+	{#if $state.tableState === 'game-over'}
+		<ShowWinner />
 	{/if}
 </div>

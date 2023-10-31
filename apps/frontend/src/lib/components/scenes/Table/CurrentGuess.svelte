@@ -12,14 +12,14 @@
 	class="absolute left-1/2 top-[45%] flex -translate-x-1/2 -translate-y-1/2 flex-col items-center text-white"
 	transition:scale="{{ start: 0.5, duration: 250 }}"
 >
-	<div class="h-[25%] w-[25%]">
+	<div class="h-[9em] w-[9em]">
 		{#if currentGuessingPlayer}
 			{@html avatar}
 		{/if}
 	</div>
 	<div class="flex items-center">
 		{#if currentGuessingPlayer}
-			<span style="font-size: 4em" class="text-center"
+			<span style="font-size: 4em; text-wrap: balance;" class="text-center"
 				><span class="font-bold">{currentGuessingPlayer.name}</span> is guessing</span
 			>
 		{/if}

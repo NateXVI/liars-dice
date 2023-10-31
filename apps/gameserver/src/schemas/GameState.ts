@@ -6,7 +6,8 @@ const tableStates = [
 	'playing',
 	'revealing-answer',
 	'called-liar',
-	'revealing-liar'
+	'revealing-liar',
+	'game-over'
 ] as const;
 
 export class GameState extends Schema {
@@ -25,4 +26,5 @@ export class GameState extends Schema {
 	@type('string') guessedBy: string;
 	@type('number') revealedDice: number = 0;
 	@type('string') liarCalledBy: string;
+	@type('string') winnerId: string;
 }

@@ -15,9 +15,9 @@
 	<div class="mx-auto w-full max-w-4xl">
 		<div class="bg-neutral flex items-center justify-between rounded-lg p-4">
 			<div class="flex items-center gap-2">
-				<p class="text-secondary-content text-3xl">Room code</p>
+				<p class="text-secondary-content text-xl">Room code</p>
 				<button
-					class="group flex h-11 w-24 items-center justify-center rounded-md bg-gray-700"
+					class="group flex h-10 w-28 items-center justify-center rounded-md bg-gray-700"
 					on:click="{() => (showCode = !showCode)}"
 				>
 					{#if showCode}<span class="text-primary-content text-4xl font-bold">{$room.id}</span>{/if}

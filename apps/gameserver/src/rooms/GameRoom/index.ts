@@ -71,15 +71,30 @@ export class GameRoom extends Room<GameState> {
 		this.state.guessedBy = '';
 		this.state.currentTurn = winnerId;
 		this.state.tableState = 'rolling-dice';
-		this.clock.setTimeout(() => {
-			this.state.tableState = 'playing';
-		}, 3000);
+
 		[...this.state.players].forEach(([, player]) => {
 			player.rollDice();
 		});
+
+		if (this.checkGameOver()) return;
+
 		this.clock.setTimeout(() => {
 			this.state.tableState = 'playing';
 		}, 3000);
+	}
+
+	checkGameOver() {
+		const players = [...this.state.players];
+		const alivePlayers = players.filter(([, player]) => player.diceLeft > 0);
+		if (alivePlayers.length <= 1) {
+			this.state.winnerId = alivePlayers[0][0];
+			this.state.tableState = 'game-over';
+			this.clock.setTimeout(() => {
+				this.state.scene = 'waiting-room';
+			}, 10000);
+			return true;
+		}
+		return false;
 	}
 }
 

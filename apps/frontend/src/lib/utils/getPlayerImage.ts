@@ -3,9 +3,13 @@ import { adventurer } from '@dicebear/collection';
 
 type AvatarOptions = {
 	withBackground?: boolean;
+	expression?: 'worried';
 };
-export function getPlayerAvatar(name: string, { withBackground = true }: AvatarOptions = {}) {
-	const avatar = createAvatar(adventurer, {
+export function getPlayerAvatar(
+	name: string,
+	{ withBackground = true, expression }: AvatarOptions = {}
+) {
+	const options: Record<string, any> = {
 		seed: name,
 		radius: 50,
 		backgroundType: withBackground ? ['gradientLinear'] : undefined,
@@ -14,6 +18,13 @@ export function getPlayerAvatar(name: string, { withBackground = true }: AvatarO
 			180, 170, 160, 150, 140, 130, 120, 110, 100, 90, 80, 70, 60, 40, 30, 50, 20, 10
 		],
 		backgroundColor: withBackground ? ['ffdfbf', 'ffd5dc', 'd1d4f9', 'c0aede', 'b6e3f4'] : undefined
-	});
+	};
+	switch (expression) {
+		case 'worried':
+			options.eyebrows = ['variant03'];
+			options.mouth = ['variant14'];
+			break;
+	}
+	const avatar = createAvatar(adventurer, options);
 	return avatar.toString();
 }

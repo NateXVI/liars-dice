@@ -43,7 +43,7 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 				}
 			});
 		});
-		let revealTime = totalDice * 2000;
+		let revealTime = (totalDice + 2) * 500;
 
 		function easeOutCubic(t: number) {
 			return 1 - Math.pow(1 - t, 3);
@@ -52,16 +52,17 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 		room.clock.setTimeout(async () => {
 			let startTime = Date.now();
 
-			while (state.revealedDice < totalDice) {
+			while (startTime + revealTime > Date.now()) {
 				const elapsedTime = Date.now() - startTime;
 				if (elapsedTime > revealTime) {
 					state.revealedDice = totalDice;
 					break;
 				}
 				const tNormalized = elapsedTime / revealTime;
-				state.revealedDice = Math.ceil(totalDice * easeOutCubic(tNormalized));
+				state.revealedDice = Math.round(totalDice * easeOutCubic(tNormalized));
 				await new Promise((resolve) => setTimeout(resolve, 100));
 			}
+			state.revealedDice = totalDice;
 		}, 2000);
 
 		room.clock.setTimeout(async () => {
@@ -71,7 +72,7 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 				(dice) => dice === state.currentDiceGuess || dice === 1
 			).length;
 
-			await new Promise((resolve) => setTimeout(resolve, 5000));
+			await new Promise((resolve) => setTimeout(resolve, 7000));
 
 			if (diceCount >= state.currentCountGuess) {
 				// guesser was right
@@ -84,6 +85,6 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 				}
 				room.nextRound(player.id);
 			}
-		}, revealTime + 2000);
+		}, revealTime + 4000);
 	}
 };
