@@ -10,6 +10,7 @@
 
 	let fontSize = 16;
 	let container: HTMLDivElement;
+	let previousTableState: string = '';
 
 	function calculateFontSize() {
 		const { width } = container.getBoundingClientRect();
@@ -17,9 +18,10 @@
 	}
 
 	$: {
-		if ($state.tableState === 'called-liar') {
+		if ($state.tableState === 'called-liar' && previousTableState !== 'called-liar') {
 			playSound('liar');
 		}
+		previousTableState = $state.tableState;
 	}
 
 	$: {
@@ -37,7 +39,7 @@
 <svelte:window on:resize="{calculateFontSize}" />
 <SceneContainer class="flex items-center justify-center p-10">
 	<div
-		class="relative aspect-[10/7] w-full max-w-[1200px] flex-1 border-2"
+		class="relative aspect-[10/7] w-full max-w-[1200px] flex-1"
 		style="max-height: calc(100vh - 5rem); font-size: {fontSize}px;"
 		bind:this="{container}"
 	>
@@ -46,8 +48,8 @@
 			alt="oval table"
 			class="pointer-events-none absolute bottom-0 left-0 right-0 top-0 h-full w-full select-none"
 		/>
-		<Players />
 		<TableStates />
+		<Players />
 		<PlayerDice />
 		<LiarButton />
 	</div>

@@ -1,12 +1,10 @@
 <script lang="ts">
-	import Avatar from '$lib/components/global/Avatar.svelte';
 	import { getPlayersInRelativeOrder } from '$lib/utils/getPlayersInOrder';
 	import { room, state } from '$lib/stores/gameStore';
 	import SpeechBubble from './SpeechBubble.svelte';
 	import PlayerPiece from '$lib/components/scenes/Table/PlayerPiece.svelte';
 
 	$: players = getPlayersInRelativeOrder($state.players, $room.sessionId);
-	$: currentTurn = $state.players.get($state.currentTurn);
 
 	$: player1 = players[0];
 	$: player2 = players[1];

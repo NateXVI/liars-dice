@@ -1,11 +1,8 @@
 <script lang="ts">
-	import Avatar from '$lib/components/global/Avatar.svelte';
-	import Dice from '$lib/components/global/Dice.svelte';
 	import { state } from '$lib/stores/gameStore';
 	import { getPlayerAvatar } from '$lib/utils/getPlayerImage';
 	import { scale } from 'svelte/transition';
 
-	$: currentGuesser = $state.players.get($state.guessedBy);
 	$: currentGuessingPlayer = $state.players.get($state.currentTurn);
 
 	$: avatar = getPlayerAvatar(currentGuessingPlayer?.name ?? '');

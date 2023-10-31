@@ -14,30 +14,28 @@
 		['called-liar', 'revealing-liar'].includes($state.tableState);
 </script>
 
-<div class="relative">
-	{#if isTheLiar}
-		<img
-			src="/assets/player-piece-liar.svg"
-			alt="player piece/background/card"
-			aria-hidden="true"
-			class="liar pointer-events-none select-none"
-		/>
-	{:else}
-		<img
-			src="/assets/player-piece-empty.svg"
-			alt="player piece/background/card"
-			aria-hidden="true"
-			class="pointer-events-none select-none"
-			class:hidden="{guessed}"
-		/>
-		<img
-			src="/assets/player-piece.svg"
-			alt="player piece/background/card"
-			aria-hidden="true"
-			class="pointer-events-none select-none"
-			class:hidden="{!guessed}"
-		/>
-	{/if}
+<div class="relative" class:liar="{isTheLiar}">
+	<img
+		src="/assets/player-piece-liar.svg"
+		alt="player piece/background/card"
+		aria-hidden="true"
+		class="pointer-events-none select-none"
+		class:hidden="{!isTheLiar}"
+	/>
+	<img
+		src="/assets/player-piece-empty.svg"
+		alt="player piece/background/card"
+		aria-hidden="true"
+		class="pointer-events-none select-none"
+		class:hidden="{isTheLiar || guessed}"
+	/>
+	<img
+		src="/assets/player-piece.svg"
+		alt="player piece/background/card"
+		aria-hidden="true"
+		class="pointer-events-none select-none"
+		class:hidden="{isTheLiar || !guessed}"
+	/>
 	<div
 		class="pointer-events-none absolute left-[6%] top-[8%] aspect-square w-[24%] select-none rounded-full bg-white"
 	>

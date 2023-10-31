@@ -3,6 +3,7 @@
 	import Controls from './Controls.svelte';
 	import CurrentGuess from './CurrentGuess.svelte';
 	import RevealDice from './RevealDice.svelte';
+	import RevealLiar from './RevealLiar.svelte';
 </script>
 
 <div class="w-full flex-1">
@@ -15,9 +16,11 @@
 			<Controls />
 		{:else}
 			<CurrentGuess />
-			<!-- <RevealDice /> -->
 		{/if}
-	{:else if $state.tableState === 'revealing-liar'}
+	{:else if ['called-liar', 'revealing-liar'].includes($state.tableState)}
 		<RevealDice />
+	{/if}
+	{#if $state.tableState === 'revealing-liar'}
+		<RevealLiar />
 	{/if}
 </div>

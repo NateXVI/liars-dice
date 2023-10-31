@@ -50,7 +50,6 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 		}
 
 		room.clock.setTimeout(async () => {
-			state.tableState = 'revealing-liar';
 			let startTime = Date.now();
 
 			while (state.revealedDice < totalDice) {
@@ -63,13 +62,16 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 				state.revealedDice = Math.ceil(totalDice * easeOutCubic(tNormalized));
 				await new Promise((resolve) => setTimeout(resolve, 100));
 			}
-		}, 1000);
+		}, 2000);
 
-		room.clock.setTimeout(() => {
+		room.clock.setTimeout(async () => {
+			state.tableState = 'revealing-liar';
 			const allDice = [...state.players.values()].flatMap((player) => [...player.dice]);
 			const diceCount = allDice.filter(
 				(dice) => dice === state.currentDiceGuess || dice === 1
 			).length;
+
+			await new Promise((resolve) => setTimeout(resolve, 5000));
 
 			if (diceCount >= state.currentCountGuess) {
 				// guesser was right
@@ -82,6 +84,6 @@ export const takeTurn: CommandFunction<TakeTurnArgs> = ({ room, state, client, m
 				}
 				room.nextRound(player.id);
 			}
-		}, revealTime + 1000);
+		}, revealTime + 2000);
 	}
 };

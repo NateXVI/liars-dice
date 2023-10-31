@@ -8,7 +8,8 @@
 </script>
 
 <button
-	disabled="{$state.guessedBy === $room.sessionId ||
+	disabled="{$state.tableState !== 'playing' ||
+		$state.guessedBy === $room.sessionId ||
 		$state.guessedBy === undefined ||
 		$state.currentCountGuess === 0}"
 	on:click="{() => sendCommand('takeTurn', { action: 'liar' })}"

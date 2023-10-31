@@ -2,7 +2,7 @@
 	import { sendCommand, state } from '$lib/stores/gameStore';
 	import Dice from '$lib/components/global/Dice.svelte';
 	import { fade, scale } from 'svelte/transition';
-	import  { playSound } from '$lib/stores/sounds';
+	import { playSound } from '$lib/stores/sounds';
 	import { onMount } from 'svelte';
 
 	let selectedCount: number = 1;
@@ -24,9 +24,21 @@
 >
 	<span style="font-size: 1.5em;" class="text-white">You think the table has</span>
 	<div class="flex h-[45%] w-full items-center justify-between text-white">
-		<button on:click="{() => (selectedCount -= 1)}" class="counter-button">–</button>
+		<button
+			on:click="{() => {
+				if (selectedCount > selectedCountMin) playSound('select');
+				selectedCount -= 1;
+			}}"
+			class="counter-button">–</button
+		>
 		<span style="font-size: 7em" class="text-center font-extrabold">{selectedCount}</span>
-		<button on:click="{() => (selectedCount += 1)}" class="counter-button">+</button>
+		<button
+			on:click="{() => {
+				if (selectedCount < 36) playSound('select');
+				selectedCount += 1;
+			}}"
+			class="counter-button">+</button
+		>
 	</div>
 	<span style="font-size: 1.5em" class="text-white">of</span>
 	<div class="flex w-full flex-1 items-center justify-center gap-2 pt-[1em]">
