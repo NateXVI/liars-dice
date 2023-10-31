@@ -37,10 +37,10 @@
 </script>
 
 <svelte:window on:resize="{calculateFontSize}" />
-<SceneContainer class="flex items-center justify-center p-10">
+<SceneContainer class="flex items-center justify-center overflow-hidden p-10">
 	<div
 		class="relative aspect-[10/7] w-full max-w-[1200px] flex-1"
-		style="max-height: calc(100vh - 5rem); font-size: {fontSize}px;"
+		style="max-width: calc(100vh * (10/7) - 80px); font-size: {fontSize}px;"
 		bind:this="{container}"
 	>
 		<img
