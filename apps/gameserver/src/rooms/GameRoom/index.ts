@@ -35,6 +35,11 @@ export class GameRoom extends Room<GameState> {
 		const order = players.length > 0 ? players[players.length - 1][1].order + 1 : 0;
 		this.state.players.set(client.sessionId, new Player({ id: client.sessionId, name, order }));
 
+		const player = this.state.players.get(client.sessionId);
+		if (this.state.scene === 'game-table') {
+			player.diceLeft = 0;
+		}
+
 		if (this.state.hostId === undefined) {
 			this.state.hostId = client.sessionId;
 		}
