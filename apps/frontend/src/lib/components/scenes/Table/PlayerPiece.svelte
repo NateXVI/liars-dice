@@ -9,32 +9,32 @@
 	$: guessed = $state.guessedBy === player.id;
 
 	$: image = getPlayerAvatar(player.name);
-	$: isTheLiar =
+	$: didCallLiar =
 		player.id === $state.liarCalledBy &&
 		['called-liar', 'revealing-liar'].includes($state.tableState);
 </script>
 
-<div class="relative" class:liar="{isTheLiar}">
+<div class="relative" class:liar="{didCallLiar}" class:grayscale="{player.diceLeft === 0}">
 	<img
 		src="/assets/player-piece-liar.svg"
 		alt="player piece/background/card"
 		aria-hidden="true"
 		class="pointer-events-none select-none"
-		class:hidden="{!isTheLiar}"
+		class:hidden="{!didCallLiar}"
 	/>
 	<img
 		src="/assets/player-piece-empty.svg"
 		alt="player piece/background/card"
 		aria-hidden="true"
 		class="pointer-events-none select-none"
-		class:hidden="{isTheLiar || guessed}"
+		class:hidden="{didCallLiar || guessed}"
 	/>
 	<img
 		src="/assets/player-piece.svg"
 		alt="player piece/background/card"
 		aria-hidden="true"
 		class="pointer-events-none select-none"
-		class:hidden="{isTheLiar || !guessed}"
+		class:hidden="{didCallLiar || !guessed}"
 	/>
 	<div
 		class="pointer-events-none absolute left-[6%] top-[8%] aspect-square w-[24%] select-none rounded-full bg-white"
