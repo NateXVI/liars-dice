@@ -3,6 +3,7 @@
 	import { createRoom, joinRoom } from '$lib/stores/gameStore';
 	import SceneContainer from '../SceneContainer.svelte';
 	import { dev } from '$app/environment';
+	import { fade } from 'svelte/transition';
 
 	let code = '';
 	$: code = code.replace(/[^a-z]/gi, '').toUpperCase();
@@ -18,8 +19,15 @@
 	const handleCreateRoom = async () => {
 		loading = true;
 		message = '';
+
+		if (!name.trim()) {
+			message = 'Please enter a name';
+			loading = false;
+			return;
+		}
+
 		try {
-			createRoom({ name });
+			await createRoom({ name });
 			message = '';
 		} catch {
 			message = 'Failed to create room';
@@ -96,11 +104,13 @@
 			</div>
 		</div>
 	</div>
-	{#if loading}
-		<div
-			class="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50"
-		>
-			<div class="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-gray-700"></div>
-		</div>
-	{/if}
 </SceneContainer>
+
+{#if loading}
+	<div
+		in:fade="{{ duration: 200 }}"
+		class="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 transition-colors"
+	>
+		<div class="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-gray-700"></div>
+	</div>
+{/if}
