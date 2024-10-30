@@ -1,6 +1,7 @@
 import config from '@colyseus/tools';
 import { WebSocketTransport } from '@colyseus/ws-transport';
 import { GameRoom } from './rooms/GameRoom';
+import cors from 'cors';
 
 export default config({
 	getId: () => 'Liars Dice',
@@ -8,6 +9,8 @@ export default config({
 	initializeGameServer: (gameServer) => {
 		gameServer.define('game', GameRoom as any);
 	},
-	initializeExpress: (app) => {},
+	initializeExpress: (app) => {
+		app.use(cors());
+	},
 	beforeListen: () => {}
 });
